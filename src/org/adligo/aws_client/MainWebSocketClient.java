@@ -18,8 +18,8 @@ public class MainWebSocketClient {
 			headers.put("key2", "value2");
 
 			WebSocketClientConfig config = new WebSocketClientConfig();
-			config.setUrl(new URI("ws://localhost:8088/count/"));
-			//config.setUrl(new URI("ws://localhost:8088/debug/"));
+			//config.setUrl(new URI("ws://localhost:8088/count/"));
+			config.setUrl(new URI("ws://localhost:8080/ws_server_demo/count/a"));
 			config.setHeaders(headers);
 			
 			final WebSocketClient ws = new WebSocketClient(config);
