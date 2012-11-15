@@ -8,5 +8,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/i_log"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/i_util"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jse_util"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/tests"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

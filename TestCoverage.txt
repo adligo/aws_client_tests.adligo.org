@@ -1,2 +1,2 @@
-Date,Package,Coverage
-11/14/2012,org.adligo.aws_client,0.0%
+Date,Package,Coverage,Instructions
+11/14/2012,org.adligo.aws_client,4.0%,987
