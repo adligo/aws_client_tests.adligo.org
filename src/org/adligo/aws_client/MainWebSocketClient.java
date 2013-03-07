@@ -19,8 +19,8 @@ public class MainWebSocketClient {
 
 			WebSocketClientConfig config = new WebSocketClientConfig();
 			//config.setUrl(new URI("ws://localhost:8088/debug/"));
-			config.setUrl(new URI("ws://localhost:8088/ws_server_demo/debug/a"));
-			//config.setUrl(new URI("ws://localhost:8088/ws_server_demo/count/a"));
+			//config.setUrl(new URI("ws://localhost:8088/ws_server_demo/debug/a"));
+			config.setUrl(new URI("ws://localhost:8088/ws_server_demo/count/a"));
 			config.setHeaders(headers);
 			
 			final I_WebSocketClient ws = new WebSocketClient(config);
@@ -31,6 +31,7 @@ public class MainWebSocketClient {
 					Object val = p.getValue();
 					if (p.threwException()) {
 						p.getException().printStackTrace();
+						ws.removeListener(this);
 						ws.disconnect();
 					} else {
 						Integer num = Integer.parseInt((String) val);
@@ -55,10 +56,12 @@ public class MainWebSocketClient {
 			Thread.sleep(5000);
 			ws.send("request 5");
 			Thread.sleep(500);
-			*/
+			
 			System.out.println("disconnecting from server ");
 			ws.disconnect();
 			System.out.println("disconnected from server ");
+			*/
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
