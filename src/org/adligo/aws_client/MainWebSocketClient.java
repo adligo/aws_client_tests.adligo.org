@@ -18,26 +18,33 @@ public class MainWebSocketClient {
 			headers.put("key2", "value2");
 
 			WebSocketClientConfig config = new WebSocketClientConfig();
-			//config.setUrl(new URI("ws://localhost:8088/count/"));
-			config.setUrl(new URI("ws://localhost:8080/ws_server_demo/count/a"));
+			//config.setUrl(new URI("ws://localhost:8088/debug/"));
+			config.setUrl(new URI("ws://localhost:8088/ws_server_demo/debug/a"));
+			//config.setUrl(new URI("ws://localhost:8088/ws_server_demo/count/a"));
 			config.setHeaders(headers);
 			
-			final WebSocketClient ws = new WebSocketClient(config);
+			final I_WebSocketClient ws = new WebSocketClient(config);
 			ws.addListener(new I_Listener() {
 				@Override
 				public void onEvent(I_Event p) {
 					System.out.println("got event " + p);
 					Object val = p.getValue();
-					Integer num = Integer.parseInt((String) val);
-					if (num > 20) {
+					if (p.threwException()) {
+						p.getException().printStackTrace();
 						ws.disconnect();
-					}
+					} else {
+						Integer num = Integer.parseInt((String) val);
+						if (num > 20) {
+							ws.disconnect();
+						}
+					} 
 				}
 			});
 			ws.connect();
 
 			System.out.println("calling server ");
-			//sendFile(ws);
+			sendFile(ws);
+			/*
 			ws.send("request 1");
 			Thread.sleep(500);
 			ws.send("request 2");
@@ -48,17 +55,20 @@ public class MainWebSocketClient {
 			Thread.sleep(5000);
 			ws.send("request 5");
 			Thread.sleep(500);
+			*/
+			System.out.println("disconnecting from server ");
 			ws.disconnect();
+			System.out.println("disconnected from server ");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private static void sendFile(WebSocketClient ws)
+	private static void sendFile(I_WebSocketClient ws)
 			throws IOException {
 		InputStream in = WebSocketClient.class.getResourceAsStream(
-				"/com/sixfire/websocket/EmailList2.xml");
+				"/org/adligo/aws_client/EmailList2.xml");
 		StringBuffer sb = new StringBuffer();
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -66,6 +76,7 @@ public class MainWebSocketClient {
 		while (in.read(bytes) != -1) {
 			baos.write(bytes);
 		}
-		ws.send(baos.toByteArray());
+		String file = baos.toString("UTF-8");
+		ws.send(file);
 	}
 }
