@@ -12,7 +12,6 @@ import org.adligo.i.util.client.I_Event;
 import org.adligo.i.util.client.I_Listener;
 
 public class MainWebSocketClient {
-	private static boolean shutdown = false;
 	
 	public static void main(String [] args) {
 		try {
@@ -22,42 +21,37 @@ public class MainWebSocketClient {
 
 			WebSocketClientConfig config = new WebSocketClientConfig(WebSocketProtocol.RFC6544);
 			//config.setUrl(new URI("ws://localhost:8088/debug/"));
-			config.setUrl(new URI("ws://localhost:8088/ws_server_demo/debug/a"));
-			//config.setUrl(new URI("ws://localhost:8088/ws_server_demo/count/a"));
+			//config.setUrl(new URI("ws://localhost:8088/ws_server_demo/debug/a"));
+			config.setUrl(new URI("ws://localhost:8088/ws_server_demo/count/a"));
 			config.setHeaders(headers);
 			
 			final I_WebSocketClient ws = new WebSocketClient(config);
-			//add listener
-			I_WebSocketReader reader = config.getReader();
-			final Thread t = new Thread(reader);
 			ws.addListener(new I_Listener() {
 				@Override
 				public void onEvent(I_Event p) {
-					System.out.println("got event " + p);
+					System.out.println("got event " + p + "\n on thread " + Thread.currentThread().getName() +
+							"\n\n");
 					Object val = p.getValue();
 					if (p.threwException()) {
 						p.getException().printStackTrace();
 						ws.removeListener(this);
-						shutdown(ws, t);
+						ws.shutdown();
 					} else {
 						if (val instanceof WebSocketConnectionStates) {
 							if (val == WebSocketConnectionStates.CONNECTION_CLOSED) {
-								shutdown(ws, t);
+								ws.shutdown();
 							}
 						}
 						if (val instanceof String) { 
 							String content = (String) val;
 							if (content.indexOf("20") != -1) {
-									shutdown(ws, t);
+								ws.shutdown();
 							}
 						}
 					} 
 				}
 			});
 			ws.connect();
-
-			
-			t.start();
 			
 			System.out.println("calling server ");
 			sendFile(ws);
@@ -105,16 +99,4 @@ public class MainWebSocketClient {
 		ws.send(file);
 	}
 
-	private static void shutdown(final I_WebSocketClient ws, final Thread t) {
-		Exception e = new Exception("shutdown called from ");
-		e.printStackTrace();
-		
-		ws.disconnect();
-		try {
-			t.join();
-		} catch (InterruptedException x) {
-			x.printStackTrace();
-		}
-		shutdown = true;
-	}
 }
