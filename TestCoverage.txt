@@ -1,2 +1,3 @@
 Date,Package,Coverage,Instructions
 11/14/2012,org.adligo.aws_client,4.0%,987
+01/26/2012,org.adligo.aws_client,31.6%,266
