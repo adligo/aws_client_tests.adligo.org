@@ -1,1 +1,5 @@
 bin/
+classes_e/
+classes/
+test_output/
+test_failure.properties
