@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="jar_and_test" name="aws_client_tests">
-    <import file="${user.home}/conf/adligo/jse-test-build.xml"/>
+    <import file="${user.home}/conf/adligo/builds/jse-test-build.xml"/>
 </project>
