@@ -1,5 +1,6 @@
-package org.adligo.aws_client;
+package org.adligo.aws_client_tests;
 
+import org.adligo.aws_client.WebSocketClientConfig;
 import org.adligo.aws_client.WebSocketClientConfig.OUTPUT_FORMAT;
 import org.adligo.aws_client.models.WebSocketProtocol;
 import org.adligo.tests.ATest;

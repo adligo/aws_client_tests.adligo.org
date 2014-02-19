@@ -1,4 +1,4 @@
-package org.adligo.aws_client;
+package org.adligo.aws_client_tests;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -6,10 +6,13 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.HashMap;
 
+import org.adligo.aws_client.I_WebSocketClient;
+import org.adligo.aws_client.WebSocketClient;
+import org.adligo.aws_client.WebSocketClientConfig;
 import org.adligo.aws_client.models.WebSocketConnectionStates;
 import org.adligo.aws_client.models.WebSocketProtocol;
-import org.adligo.i.util.client.I_Event;
-import org.adligo.i.util.client.I_Listener;
+import org.adligo.i.util.shared.I_Event;
+import org.adligo.i.util.shared.I_Listener;
 
 public class MainWebSocketClient {
 	

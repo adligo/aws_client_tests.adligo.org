@@ -1,5 +1,6 @@
-package org.adligo.aws_client.models;
+package org.adligo.aws_client_tests.models;
 
+import org.adligo.aws_client.models.Opcode6455;
 import org.adligo.tests.ATest;
 
 public class Opcode6455Tests extends ATest {
