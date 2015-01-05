@@ -1,7 +1,8 @@
-bin/
-classes_e/
-classes/
-test_output/
-test_failure.properties
+/bin/
+/build/
+/classes_e/
+/classes/
+/test_output/
+/test_failure.properties
 /test_reports
 /aws_client_tests.jar
